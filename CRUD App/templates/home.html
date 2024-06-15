@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <h1>Students Detail Management</h1>
+
+    <h4>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </h4>
+
+
+    <p><a href="{{url_for('addUsers')}}">Add Users</a></p>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for data in datas %}
+
+            <tr>
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.phone}}</td>
+                <td><a href="{{url_for('editUser',id=data.id)}}">Edit</a></td>
+                <td><a onclick="return confirm ('Are you sure to delete?');" href="{{url_for('deleteUser', id=data.id)}}">Delete</a></td>
+            </tr>
+
+        {% endfor %}
+
+    </table>
+</body>
+</html>
